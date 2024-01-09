@@ -31,7 +31,7 @@ def save_pic(res, smpl_layer, file, logger, dataset_name, target):
             savepath=os.path.join(fit_path+"/frame_{:0>4d}".format(i)),
             batch_idx=i,
             show=False,
-            only_joint=True)
+            only_joint=False)
     logger.info('Pictures saved')
 
 

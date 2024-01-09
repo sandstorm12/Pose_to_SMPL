@@ -1,0 +1,33 @@
+{
+    "MODEL": {
+        "GENDER": "neutral"
+    },
+    "TRAIN": {
+        "LEARNING_RATE": 1e-2,
+        "MAX_EPOCH": 1000,
+        "WRITE": 10,
+        "OPTIMIZE_SCALE": 1,
+        "OPTIMIZE_SHAPE": 1
+    },
+    "USE_GPU": 1,
+    "DATASET": {
+        "NAME": "COCO",
+        "PATH": "../COCO/result",
+        "TARGET_PATH": "",
+        "DATA_MAP": [
+            [1, 11],
+            [16, 5],
+            [17, 6],
+            [18, 7],
+            [19, 8],
+            [20, 9],
+            [21, 10],
+            [2, 12],
+            [4, 13],
+            [5, 14],
+            [7, 15],
+            [8, 16]
+        ]
+    },
+    "DEBUG": 0
+}
