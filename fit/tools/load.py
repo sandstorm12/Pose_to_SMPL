@@ -24,4 +24,6 @@ def load(name, path):
         return np.load(path, allow_pickle=True)
     elif name == "COCO":
         return np.load(path, allow_pickle=True)
+    elif name == "HALPE":
+        return np.load(path, allow_pickle=True)
         
