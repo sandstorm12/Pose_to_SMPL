@@ -6,7 +6,7 @@
         "LEARNING_RATE": 1e-2,
         "MAX_EPOCH": 1000,
         "WRITE": 10,
-        "OPTIMIZE_SCALE": 1,
+        "OPTIMIZE_SCALE": 0,
         "OPTIMIZE_SHAPE": 1
     },
     "USE_GPU": 1,
