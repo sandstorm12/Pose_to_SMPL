@@ -38,8 +38,6 @@ def display_model(
         draw_skeleton(joints, kintree_table=kintree_table, ax=ax)
         draw_skeleton_target(target, kintree_table=kintree_table, ax=ax)
 
-    fig.canvas.mpl_connect('key_press_event', on_press)
-
     ax.set_xlabel('X')
     ax.set_ylabel('Y')
     ax.set_zlabel('Z')
