@@ -56,7 +56,7 @@ def train(smpl_layer, target,
     
     with torch.no_grad():
         verts, Jtr = smpl_layer(pose_params, th_betas=shape_params)
-        params["scale"]*=(torch.max(torch.abs(target))/torch.max(torch.abs(Jtr)))
+        params["scale"]*=(torch.max(torch.abs(target.index_select(1, index["dataset_index"])))/torch.max(Jtr.index_select(1, index["smpl_index"])))
 
     for epoch in tqdm(range(cfg.TRAIN.MAX_EPOCH)):
         verts, Jtr = smpl_layer(pose_params, th_betas=shape_params)
