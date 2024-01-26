@@ -15,7 +15,7 @@ def create_dir_not_exist(path):
         os.mkdir(path)
 
 
-def save_pic(res, smpl_layer, file, logger, dataset_name, target):
+def save_pic(res, target, smpl_layer, file, logger, dataset_name):
     _, _, verts, Jtr = res
     file_name = re.split('[/.]', file)[-2]
     fit_path = "fit/output/{}/picture/{}".format(dataset_name, file_name)
@@ -24,7 +24,8 @@ def save_pic(res, smpl_layer, file, logger, dataset_name, target):
     for i in tqdm(range(Jtr.shape[0])):
         display_model(
             {'verts': verts.cpu().detach(),
-             'joints': Jtr.cpu().detach()},
+             'joints': Jtr.cpu().detach(),
+             'target': target},
             model_faces=smpl_layer.th_faces,
             with_joints=True,
             kintree_table=smpl_layer.kintree_table,

@@ -24,6 +24,7 @@ def display_model(
         ax = fig.add_subplot(111, projection='3d')
     verts = model_info['verts'][batch_idx]
     joints = model_info['joints'][batch_idx]
+    target = model_info['target'][batch_idx]
     if model_faces is None:
         ax.scatter(verts[:, 0], verts[:, 1], verts[:, 2], alpha=0.2)
     elif not only_joint:
@@ -35,6 +36,10 @@ def display_model(
         ax.add_collection3d(mesh)
     if with_joints:
         draw_skeleton(joints, kintree_table=kintree_table, ax=ax)
+        draw_skeleton_target(target, kintree_table=kintree_table, ax=ax)
+
+    fig.canvas.mpl_connect('key_press_event', on_press)
+
     ax.set_xlabel('X')
     ax.set_ylabel('Y')
     ax.set_zlabel('Z')
@@ -49,7 +54,8 @@ def display_model(
     if show:
         plt.show()
     plt.close()
-    return ax
+
+    return fig
 
 
 def draw_skeleton(joints3D, kintree_table, ax=None, with_numbers=True):
@@ -74,4 +80,15 @@ def draw_skeleton(joints3D, kintree_table, ax=None, with_numbers=True):
                 color=colors[i], linestyle='-', linewidth=2, marker='o', markersize=5)
         if with_numbers:
             ax.text(joints3D[j2, 0], joints3D[j2, 1], joints3D[j2, 2], j2)
+    return ax
+
+def draw_skeleton_target(joints3D, kintree_table, ax=None, with_numbers=True):
+    if ax is None:
+        fig = plt.figure(frameon=False)
+        ax = fig.add_subplot(111, projection='3d')
+    else:
+        ax = ax
+
+    ax.scatter(joints3D[:, 0], joints3D[:, 1], joints3D[:, 2], color='green')
+
     return ax
