@@ -56,6 +56,7 @@ class SMPL_Layer(Module):
 
         # Kinematic chain params
         self.kintree_table = smpl_data['kintree_table']
+        print(self.kintree_table)
         parents = list(self.kintree_table[0].tolist())
         self.kintree_parents = parents
         self.num_joints = len(parents)  # 24

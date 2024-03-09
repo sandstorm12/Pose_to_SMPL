@@ -8,15 +8,15 @@ rotate = {
     'NTU': [1., 1., -1.],
     'HAA4D': [1., -1., -1.],
     'COCO': [1., 1., 1.],
-    'HALPE': [1., 1., -1.],
+    'HALPE': [1., 1., 1.],
 }
 
 
 def transform(name, arr: np.ndarray):
-    for i in range(arr.shape[0]):
-        # origin = arr[i][19]
-        for j in range(arr.shape[1]):
-            # arr[i][j] -= origin
-            for k in range(3):
-                arr[i][j][k] *= rotate[name][k]
+    # for i in range(arr.shape[0]):
+    #     # origin = arr[i][19]
+    #     for j in range(arr.shape[1]):
+    #         # arr[i][j] -= origin
+    #         for k in range(3):
+    #             arr[i][j][k] *= rotate[name][k]
     return arr

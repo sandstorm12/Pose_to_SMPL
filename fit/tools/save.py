@@ -16,7 +16,7 @@ def create_dir_not_exist(path):
 
 
 def save_pic(res, target, smpl_layer, file, logger, dataset_name):
-    _, _, verts, Jtr = res
+    _, _, verts, Jtr, scale, translation = res
     file_name = re.split('[/.]', file)[-2]
     fit_path = "fit/output/{}/picture/{}".format(dataset_name, file_name)
     os.makedirs(fit_path,exist_ok=True)
@@ -32,12 +32,12 @@ def save_pic(res, target, smpl_layer, file, logger, dataset_name):
             savepath=os.path.join(fit_path+"/frame_{:0>4d}".format(i)),
             batch_idx=i,
             show=False,
-            only_joint=False)
+            only_joint=True)
     logger.info('Pictures saved')
 
 
-def save_params(res, file, logger, dataset_name):
-    pose_params, shape_params, verts, Jtr = res
+def save_params(res, file, logger, dataset_name, smpl_layer):
+    pose_params, shape_params, verts, Jtr, scale, translation = res
     file_name = re.split('[/.]', file)[-2]
     fit_path = "fit/output/{}/".format(dataset_name)
     create_dir_not_exist(fit_path)
@@ -52,6 +52,11 @@ def save_params(res, file, logger, dataset_name):
     params["pose_params"] = pose_params
     params["shape_params"] = shape_params
     params["Jtr"] = Jtr
+    params["verts"] = verts
+    params["scale"] = scale
+    params["translation"] = translation
+    params["kintree_table"] = smpl_layer.kintree_table
+    params["th_faces"] = smpl_layer.th_faces
     print("label:{}".format(label))
     with open(os.path.join((fit_path),
                            "{}_params.pkl".format(file_name)), 'wb') as f:

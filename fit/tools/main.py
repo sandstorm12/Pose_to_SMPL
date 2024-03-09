@@ -94,15 +94,19 @@ if __name__ == "__main__":
     device = set_device(USE_GPU=cfg.USE_GPU)
     logger.info('using device: {}'.format(device))
 
-    smpl_layer = SMPL_Layer(
-        center_idx=0,
-        gender=cfg.MODEL.GENDER,
-        model_root='smplpytorch/native/models')
-
-    meters = Meters(stop_threshold=100)
     file_num = 0
     for root, dirs, files in os.walk(cfg.DATASET.PATH):
         for file in sorted(files):
+            smpl_layer = SMPL_Layer(
+                center_idx=0,
+                gender=cfg.MODEL.GENDER,
+                model_root='smplpytorch/native/models')
+
+            meters = Meters(stop_threshold=100)
+
+            # TODO: Refactor
+            if 'npy' not in file:
+                continue
             # if not 'baseball_swing' in file:
             #     continue
             file_num += 1
@@ -118,7 +122,7 @@ if __name__ == "__main__":
             meters.reset_early_stop()
             logger.info("avg_loss:{:.4f}".format(meters.avg))
 
-            save_params(res, file, logger, args.dataset_name)
+            save_params(res, file, logger, args.dataset_name, smpl_layer)
             save_pic(res, target, smpl_layer, file, logger, args.dataset_name)
 
             torch.cuda.empty_cache()
