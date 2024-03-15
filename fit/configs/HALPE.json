@@ -7,7 +7,7 @@
         "MAX_EPOCH": 1000,
         "WRITE": 100,
         "OPTIMIZE_SCALE": 1,
-        "OPTIMIZE_SHAPE": 1
+        "OPTIMIZE_SHAPE": 0
     },
     "USE_GPU": 1,
     "DATASET": {
@@ -30,7 +30,6 @@
             [12, 18],
             [13, 5],
             [14, 6],
-            [15, 0],
             
             [18, 7],
             [19, 8],

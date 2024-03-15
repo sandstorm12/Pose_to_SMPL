@@ -123,7 +123,7 @@ if __name__ == "__main__":
             logger.info("avg_loss:{:.4f}".format(meters.avg))
 
             save_params(res, file, logger, args.dataset_name, smpl_layer)
-            save_pic(res, target, smpl_layer, file, logger, args.dataset_name)
+            # save_pic(res, target, smpl_layer, file, logger, args.dataset_name)
 
             torch.cuda.empty_cache()
     logger.info(

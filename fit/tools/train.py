@@ -61,18 +61,20 @@ def train(smpl_layer, target,
     
     with torch.no_grad():
         verts, Jtr = smpl_layer(pose_params, th_betas=shape_params)
-        # params["scale"] *= (torch.max(torch.abs(target.index_select(1, index["dataset_index"])))/torch.max(Jtr.index_select(1, index["smpl_index"])))
+        params["scale"] *= (torch.max(torch.abs(target.index_select(1, index["dataset_index"])))/torch.max(Jtr.index_select(1, index["smpl_index"])))
         # print("Scale", target.index_select(1, index["dataset_index"]).shape)
         # params["scale"] *= (
         #     (torch.max(target.index_select(1, index["dataset_index"])[:,:,1]) - torch.min(target.index_select(1, index["dataset_index"])[:,:,1])) \
         #         / (torch.max(Jtr.index_select(1, index["smpl_index"])[:,:,1]) - torch.min(Jtr.index_select(1, index["smpl_index"])[:,:,1]))
         # )
 
-        # params["scale"] *= .96
+        # params["scale"] *= 1.02 # Durect or inverse with the SMPL
 
     for epoch in tqdm(range(cfg.TRAIN.MAX_EPOCH)):
         verts, Jtr = smpl_layer(pose_params, th_betas=shape_params)
-        loss = F.smooth_l1_loss(scale*Jtr.index_select(1, index["smpl_index"]) + translation,
+        # Add rotation term
+        # Invert SMPL relation with the coefficient
+        loss = F.smooth_l1_loss(scale*1.1*Jtr.index_select(1, index["smpl_index"]) + translation,
                                 target.index_select(1, index["dataset_index"]))
         optimizer.zero_grad()
         loss.backward()
