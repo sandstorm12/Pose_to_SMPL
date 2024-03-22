@@ -74,7 +74,7 @@ def train(smpl_layer, target,
         verts, Jtr = smpl_layer(pose_params, th_betas=shape_params)
         # Add rotation term
         # Invert SMPL relation with the coefficient
-        loss = F.smooth_l1_loss(scale*1.1*Jtr.index_select(1, index["smpl_index"]) + translation,
+        loss = F.smooth_l1_loss(scale*Jtr.index_select(1, index["smpl_index"]) + translation,
                                 target.index_select(1, index["dataset_index"]))
         optimizer.zero_grad()
         loss.backward()
