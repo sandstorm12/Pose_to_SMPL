@@ -37,7 +37,7 @@ def save_pic(res, target, smpl_layer, file, logger, dataset_name):
 
 
 def save_params(res, file, logger, dataset_name, smpl_layer):
-    pose_params, shape_params, verts, Jtr, scale, translation = res
+    pose_params, shape_params, verts, Jtr, scale, transformation = res
     file_name = re.split('[/.]', file)[-2]
     fit_path = "fit/output/{}/".format(dataset_name)
     create_dir_not_exist(fit_path)
@@ -54,7 +54,9 @@ def save_params(res, file, logger, dataset_name, smpl_layer):
     params["Jtr"] = Jtr
     params["verts"] = verts
     params["scale"] = scale
-    params["translation"] = translation
+    # params["translation"] = translation
+    # params["rotation"] = rotation
+    params["transformation"] = transformation
     params["kintree_table"] = smpl_layer.kintree_table
     params["th_faces"] = smpl_layer.th_faces
     print("label:{}".format(label))
